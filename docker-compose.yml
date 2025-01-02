@@ -27,7 +27,7 @@ services:
     networks:
       - monitor-net
     labels:
-      org.label-schema.group: "monitoring"
+      0: org.label-schema.group=monitoring
 
   alertmanager:
     image: prom/alertmanager:v0.27.0
@@ -43,7 +43,7 @@ services:
     networks:
       - monitor-net
     labels:
-      org.label-schema.group: "monitoring"
+      0: org.label-schema.group=monitoring
 
   nodeexporter:
     image: prom/node-exporter:v1.8.2
@@ -63,7 +63,7 @@ services:
     networks:
       - monitor-net
     labels:
-      org.label-schema.group: "monitoring"
+      0: org.label-schema.group=monitoring
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.51.0
@@ -83,7 +83,7 @@ services:
     networks:
       - monitor-net
     labels:
-      org.label-schema.group: "monitoring"
+      0: org.label-schema.group=monitoring
 
   grafana:
     image: grafana/grafana:11.3.0
@@ -98,11 +98,11 @@ services:
       - GF_USERS_ALLOW_SIGN_UP=false
     restart: unless-stopped
     expose:
-      - 3000
+      - 6523
     networks:
       - monitor-net
     labels:
-      org.label-schema.group: "monitoring"
+      0: org.label-schema.group=monitoring
 
   pushgateway:
     image: prom/pushgateway:v1.10.0
@@ -113,17 +113,11 @@ services:
     networks:
       - monitor-net
     labels:
-      org.label-schema.group: "monitoring"
+      0: org.label-schema.group=monitoring
 
   caddy:
     image: caddy:2.8.4
     container_name: caddy
-    ports:
-      - "3000:3000"
-      - "8080:8080"
-      - "9090:9090"
-      - "9093:9093"
-      - "9091:9091"
     volumes:
       - ./caddy:/etc/caddy
     environment:
@@ -134,4 +128,4 @@ services:
     networks:
       - monitor-net
     labels:
-      org.label-schema.group: "monitoring"
+      0: org.label-schema.group=monitoring
